@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,10 +22,8 @@ public class QueryService {
     ElasticsearchRestTemplate elasticsearchTemplate;
 
     public List<Gif> getGif(String gif) {
-        Map<String,Float> fields = new HashMap<String,Float>();
-        fields.put("tags",1f);
         Query searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(QueryBuilders.queryStringQuery(gif+"*").fields(fields))
+                .withQuery(QueryBuilders.wildcardQuery("tags",gif+"*"))
                 .build();
 
         SearchHits<Gif> output =

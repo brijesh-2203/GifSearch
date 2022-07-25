@@ -2,6 +2,7 @@ $(document).ready(function ()
 {
    $("input").on('keyup',function (e)
    {
+       var val = $("#search-id").val();
        e.preventDefault()
        $.ajax({
            type: "GET",
